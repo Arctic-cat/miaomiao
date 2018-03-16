@@ -116,7 +116,7 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ServerResponse<String> forgetResetPassword(String username,String passwordNew,String forgetToken){
-        if (StringUtils.isNotBlank(forgetToken)) {
+        if (StringUtils.isBlank(forgetToken)) {
             return ServerResponse.createByErrorMessage("参数错误, token需要传递");
         }
         ServerResponse validResponse = this.checkValid(username,Const.USERNAME);
@@ -125,7 +125,7 @@ public class UserServiceImpl implements IUserService {
         }
 
         String token = TokenCache.getKey(TokenCache.TOKEN_PREFIX + username);
-        if(StringUtils.isNotBlank(token)){
+        if(StringUtils.isBlank(token)){
             return ServerResponse.createByErrorMessage("token无效或过期");
         }
 
@@ -171,12 +171,13 @@ public class UserServiceImpl implements IUserService {
         }
         User updateUser = new User();
         updateUser.setId(user.getId());
+        updateUser.setUsername(user.getUsername());
         updateUser.setEmail(user.getEmail());
         updateUser.setPhone(user.getPhone());
         updateUser.setQuestion(user.getQuestion());
         updateUser.setAnswer(user.getAnswer());
 
-        int updateCount = userMapper.updateByPrimaryKey(updateUser);
+        int updateCount = userMapper.updateByPrimaryKeySelective(updateUser);
 
         if (updateCount > 0) {
             return ServerResponse.createBySuccess("更新个人信息成功", updateUser);
