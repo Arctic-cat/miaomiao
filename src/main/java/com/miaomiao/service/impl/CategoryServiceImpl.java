@@ -7,6 +7,7 @@ import com.miaomiao.dao.CategoryMapper;
 import com.miaomiao.pojo.Category;
 import com.miaomiao.service.ICategoryService;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,7 @@ import org.springframework.util.CollectionUtils;
 
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
+
 
 @Service("iCategoryService")
 public class CategoryServiceImpl implements ICategoryService {
@@ -50,16 +51,16 @@ public class CategoryServiceImpl implements ICategoryService {
         }
 
         Category category = new Category();
-        category.setParentId(categoryId);
+        category.setId(categoryId);
         category.setName(categoryName);
 
         int rowCount = categoryMapper.updateByPrimaryKeySelective(category);
 
         if (rowCount > 0) {
-            return ServerResponse.createBySuccess("更新品类成功");
+            return ServerResponse.createBySuccess("更新品类名字成功");
         }
 
-        return ServerResponse.createByErrorMessage("更新品类失败");
+        return ServerResponse.createByErrorMessage("更新品类名字失败");
     }
 
     @Override

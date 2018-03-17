@@ -15,10 +15,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/manage/category/")
+@RequestMapping("/manage/category")
 public class CategoryManageController {
     @Autowired
     private IUserService iUserService;
+
 
     @Autowired
     private ICategoryService iCategoryService;
@@ -53,7 +54,6 @@ public class CategoryManageController {
         //校验是否是管理员
         if (iUserService.checkAdminRole(user).isSuccess()) {
             //更新categoryName
-
             return iCategoryService.updateCategoryName(categoryId, categoryName);
         } else {
             return ServerResponse.createByErrorMessage("无权限操作,需要管理员权限");
