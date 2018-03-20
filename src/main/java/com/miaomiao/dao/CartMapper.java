@@ -1,6 +1,9 @@
 package com.miaomiao.dao;
 
 import com.miaomiao.pojo.Cart;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface CartMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +17,17 @@ public interface CartMapper {
     int updateByPrimaryKeySelective(Cart record);
 
     int updateByPrimaryKey(Cart record);
+
+    Cart selectCartByUserIdProductId(@Param(value = "userId") Integer userId, @Param(value = "productId")Integer productId);
+
+    List<Cart> selectCartByUserId(Integer userId);
+
+    int selectCartProductUncheckByUserId(Integer userId);
+
+    int deleteByUserIdProductIds(@Param(value = "userId") Integer userId, @Param(value = "productIds") List<String> productIds);
+
+    int checkOrUncheckProduct(@Param(value = "userId") Integer userId,@Param(value = "productId")Integer productId, @Param(value = "checked") Integer checked);
+
+    int selectCartProductCount(@Param(value = "userId") Integer userId);
+
 }
