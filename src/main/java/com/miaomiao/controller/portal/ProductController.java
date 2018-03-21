@@ -11,18 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/product/")
 public class ProductController {
     @Autowired
     private IProductService iProductService;
 
-    @RequestMapping("/detail.do")
+    @RequestMapping("detail.do")
     @ResponseBody
     public ServerResponse<ProductDetailVo> detail(Integer productId) {
         return iProductService.getProductDetail(productId);
     }
 
-    @RequestMapping("/list.do")
+    @RequestMapping("list.do")
     @ResponseBody
     public ServerResponse<PageInfo> list(@RequestParam(value = "keyword",required = false) String keyword,
                                          @RequestParam(value = "categoryId",required = false)Integer categoryId,
