@@ -83,7 +83,7 @@ public class OrderController {
             return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(), ResponseCode.NEED_LOGIN.getDesc());
         }
 
-        return iOrderService.getOrderList(user.getId());
+        return iOrderService.getOrderList(user.getId(),pageNum,pageSize);
     }
 
     @RequestMapping("pay.do")
