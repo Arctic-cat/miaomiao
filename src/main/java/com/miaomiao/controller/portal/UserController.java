@@ -5,6 +5,7 @@ import com.miaomiao.common.ResponseCode;
 import com.miaomiao.common.ServerResponse;
 import com.miaomiao.pojo.User;
 import com.miaomiao.service.IUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Controller;
@@ -61,6 +62,7 @@ public class UserController {
     public ServerResponse<User> getUserInfo(HttpSession session) {
         User user = (User) session.getAttribute(Const.CURRENT_USER);
         if (user != null) {
+            user.setPassword(StringUtils.EMPTY);
             return ServerResponse.createBySuccess(user);
         }
 
